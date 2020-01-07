@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Online Products Web</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <script src="./sampleObject.ts"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#otherProductList").hide();
+            // console.log(Products);
+            const generalProducts = [];
+            const otherProducts = [];
+            // var api_url = 'https://gist.githubusercontent.com/bharadwajturlapati/4e81154dbcc7d6928921b96057fc5b4a/raw/25b889bf1d300c104eef0ea0a718463dac2473ec/products.json'
+            // $.ajax({
+            //     type: "GET",
+            //     url: api_url,
+            //     contentType: "application/json",
+            //     dataType: 'json',
+            //     success: function (result) {
+            //         console.log(result);
+            //     }
+            // });
+            for (i = 0; i < Products.length; i++) {
+                if (Products[i].hub === "general") {
+                    let content = '';
+                    generalProducts.push(Products[i]);
+                    generalProducts.forEach(element => {
+                        content += '<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 product">' + '<div class="product-img text-center">'
+                            + '<img src=' + element.image + '>' + '</div > ' +
+                            '<div class="product-det">' +
+                            '<div class="d-flex align-items-center product-name">' +
+                            ' <p>' + 'Name' + ':' + '</p>' +
+                            ' <p>' + element.name + '</p>' +
+                            ' </div>' + '<div class="d-flex align-items-center product-name">' +
+                            ' <p>' + 'Author' + ':' + '</p>' +
+                            ' <p>' + element.author + '</p>' +
+                            ' </div>' + '<div class="d-flex align-items-center product-name">' +
+                            ' <p>' + 'Description' + ':' + '</p>' +
+                            ' <p>' + element.description + '</p>' +
+                            ' </div>' + '<div class="d-flex align-items-center product-name">' +
+                            ' <p>' + 'Key' + ':' + '</p>' +
+                            ' <p>' + element.key + '</p>' +
+                            ' </div>' + '</div>' + '</div > ';
+                        document.getElementById('productList').innerHTML = content;
+                    });
+                } else {
+                    let content = '';
+                    otherProducts.push(Products[i]);
+                    otherProducts.forEach(element => {
+                        content += '<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 product">' + '<div class="product-img text-center">'
+                            + '<img src=' + element.image + '>' + '</div > ' +
+                            '<div class="product-det">' +
+                            '<div class="d-flex align-items-center product-name">' +
+                            ' <p>' + 'Name' + ':' + '</p>' +
+                            ' <p>' + element.name + '</p>' +
+                            ' </div>' + '<div class="d-flex align-items-center product-name">' +
+                            ' <p>' + 'Author' + ':' + '</p>' +
+                            ' <p>' + element.author + '</p>' +
+                            ' </div>' + '<div class="d-flex align-items-center product-name">' +
+                            ' <p>' + 'Description' + ':' + '</p>' +
+                            ' <p>' + element.description + '</p>' +
+                            ' </div>' + '<div class="d-flex align-items-center product-name">' +
+                            ' <p>' + 'Key' + ':' + '</p>' +
+                            ' <p>' + element.key + '</p>' +
+                            ' </div>' + '</div>' + '</div > ';
+                        document.getElementById('otherProductList').innerHTML = content;
+                    });
+                }
+            }
+            /*Drag and rearrange*/
+            $(function () {
+                $("#productList").sortable();
+                $("#sortable").disableSelection();
+            });
+            $(function () {
+                $("#otherProductList").sortable();
+                $("#sortable").disableSelection();
+            });
+        });
+
+        function tabName(name) {
+            if (name === 'general') {
+                $("#general").addClass("active");
+                $("#others").removeClass("active");
+                $("#productList").show();
+                $("#otherProductList").hide();
+            } else {
+                $("#others").addClass("active");
+                $("#general").removeClass("active");
+                $("#productList").hide();
+                $("#otherProductList").show();
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container-fluid p-0">
+        <div class="tabs">
+            <ul class="d-flex justify-content-center">
+                <li><a id='general' onclick="tabName('general')" class="active">general</a></li>
+                <li><a id='others' onclick="tabName('others')">others</a></li>
+            </ul>
+        </div>
+        <div class="row m-0 products-list" id="productList"></div>
+        <div class="row m-0 products-list" id="otherProductList"></div>
+    </div>
+
+</body>
+
+</html>
